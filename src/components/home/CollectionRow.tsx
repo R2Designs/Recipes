@@ -20,7 +20,7 @@ export function CollectionRow({ collection }: { collection: Collection }) {
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
         <div className="mb-4 flex items-end justify-between gap-4">
           <div>
-            <h2 className="text-h2 text-ink">{collection.title}</h2>
+            <h2 className="text-h2 font-display text-ink">{collection.title}</h2>
             <p className="mt-0.5 text-body text-ink-soft">{collection.subtitle}</p>
           </div>
           <Link

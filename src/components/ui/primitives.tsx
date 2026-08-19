@@ -124,7 +124,7 @@ export function EmptyState({
           {icon}
         </div>
       )}
-      <h3 className="text-h3 text-ink">{title}</h3>
+      <h3 className="text-h3 font-display text-ink">{title}</h3>
       {body && <p className="mt-2 text-body text-ink-soft">{body}</p>}
       {action && <div className="mt-6">{action}</div>}
     </div>
@@ -147,7 +147,7 @@ export function SectionHead({
     <div className="mb-5 flex items-end justify-between gap-4">
       <div>
         {eyebrow && <p className="mb-1.5 text-micro uppercase text-saffron-deep">{eyebrow}</p>}
-        <h2 className="text-h2 text-ink">{title}</h2>
+        <h2 className="text-h2 font-display text-ink">{title}</h2>
         {subtitle && <p className="mt-1 text-body text-ink-soft">{subtitle}</p>}
       </div>
       {action}

@@ -94,7 +94,7 @@ export default function RecipeDetail() {
                 </span>
               </div>
 
-              <h1 className="text-h1 text-balance text-white sm:text-[2.75rem]">{recipe.name}</h1>
+              <h1 className="text-h1 font-display text-balance text-white sm:text-[2.75rem]">{recipe.name}</h1>
               <p className="mt-1.5 text-[1.0625rem] text-white/80">{recipe.tagline}</p>
 
               {recipe.rating && (

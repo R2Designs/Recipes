@@ -44,7 +44,7 @@ export default function Home() {
         <div className="mb-5 flex items-end justify-between gap-4">
           <div>
             <p className="mb-1.5 text-micro uppercase text-saffron-deep">Everything</p>
-            <h2 className="text-h2 text-ink">Popular right now</h2>
+            <h2 className="text-h2 font-display text-ink">Popular right now</h2>
           </div>
           <Link
             to="/search"

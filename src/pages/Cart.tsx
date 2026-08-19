@@ -64,7 +64,7 @@ export default function Cart() {
   return (
     <div className="pb-36">
       <div className="mx-auto w-full max-w-3xl px-4 pt-5 sm:px-6">
-        <h1 className="text-h1 text-ink">Your basket</h1>
+        <h1 className="text-h1 font-display text-ink">Your basket</h1>
         <div className="mt-1.5 flex items-center gap-2 text-body text-ink-soft">
           <span className="size-8 shrink-0 overflow-hidden rounded-tile bg-sunk">
             <FoodImage src={cart.recipeImage} alt={cart.recipeName} rounded="rounded-tile" />

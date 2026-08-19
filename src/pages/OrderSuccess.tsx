@@ -41,7 +41,7 @@ export default function OrderSuccess() {
           <Sparkles size={28} className="text-veg" />
         </motion.div>
 
-        <h1 className="text-h1 text-ink">You’re all set. 🍳</h1>
+        <h1 className="text-h1 font-display text-ink">You’re all set. 🍳</h1>
         <p className="mt-2 text-[1.0625rem] text-ink-soft">
           {order.cart.recipeName} for {order.cart.servings}
         </p>

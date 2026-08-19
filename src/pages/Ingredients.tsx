@@ -115,7 +115,7 @@ export default function Ingredients() {
           <ArrowLeft size={14} /> {recipe.name}
         </button>
 
-        <h1 className="text-h1 text-ink">Everything you need</h1>
+        <h1 className="text-h1 font-display text-ink">Everything you need</h1>
         <p className="mt-1.5 text-body text-ink-soft">
           For <span className="font-semibold text-ink">{recipe.name}</span>
           {cart?.variantName && cart.variantName !== 'Classic' && ` · ${cart.variantName}`}
@@ -132,7 +132,7 @@ export default function Ingredients() {
         {/* Shopping list */}
         <div className="mt-6">
           <div className="mb-1 flex items-baseline justify-between">
-            <h2 className="text-h3 text-ink">Ingredients</h2>
+            <h2 className="text-h3 font-display text-ink">Ingredients</h2>
             <span className="text-meta text-ink-mute">{pluralise(activeLines.length, 'item')}</span>
           </div>
 
