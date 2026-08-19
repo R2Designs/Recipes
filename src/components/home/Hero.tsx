@@ -41,7 +41,7 @@ export function Hero() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="text-display heading-display text-balance text-ink"
         >
-          What do you feel like making?
+          Let's start cooking!
         </motion.h1>
 
         <motion.p
