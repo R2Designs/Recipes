@@ -13,7 +13,16 @@ import NotFound from '@/pages/NotFound'
 /** Route changes should start at the top — the browser won't do it for an SPA. */
 function ScrollToTop() {
   const { pathname } = useLocation()
-  useEffect(() => window.scrollTo(0, 0), [pathname])
+  useEffect(() => {
+    // Braces are load-bearing here, not style: an arrow with an implicit
+    // return hands whatever `scrollTo` returns to React as the effect's
+    // cleanup function. It's `undefined` in a clean browser, but at least
+    // one real environment (seen via automation, plausible from an
+    // extension that patches `scrollTo`) returned `{}` instead — a
+    // non-function truthy value blows up on unmount with "destroy is not
+    // a function" and blanks the whole page. Discard the return explicitly.
+    window.scrollTo(0, 0)
+  }, [pathname])
   return null
 }
 

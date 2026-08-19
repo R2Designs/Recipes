@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
+import { ErrorBoundary } from '@/components/system/ErrorBoundary'
 import './styles/theme.css'
 import App from './App.tsx'
 
@@ -10,7 +11,9 @@ createRoot(document.getElementById('root')!).render(
         vite.config.ts) — basename must not have a trailing slash, or every
         route fails to match and falls through to the catch-all. */}
     <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
-      <App />
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
     </BrowserRouter>
   </StrictMode>,
 )
