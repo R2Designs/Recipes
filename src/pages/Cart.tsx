@@ -4,7 +4,7 @@ import { motion } from 'motion/react'
 import { ArrowRight, ShoppingBasket, Truck, Loader2, ChevronDown } from 'lucide-react'
 import { useCartStore } from '@/store/useCartStore'
 import { useOrderStore } from '@/store/useOrderStore'
-import { orderableLines, priceCart, freeDeliveryShortfall, pushToInstamart } from '@/services/cartService'
+import { orderableLines, priceCart, pushToInstamart } from '@/services/cartService'
 import { confirmCheckout } from '@/services/checkoutService'
 import { FoodImage } from '@/components/ui/FoodImage'
 import { Button, ButtonLink } from '@/components/ui/Button'
@@ -39,7 +39,6 @@ export default function Cart() {
   const totals = priceCart(cart)
   const orderable = orderableLines(cart)
   const owned = cart.lines.filter((l) => l.alreadyHave && !l.removed)
-  const shortfall = freeDeliveryShortfall(totals)
   const pushed = !!cartStore.vendorCartId
 
   async function handlePrimary() {
@@ -133,16 +132,16 @@ export default function Cart() {
             value={totals.deliveryFee === 0 ? 'Free' : formatPrice(totals.deliveryFee)}
             valueClass={totals.deliveryFee === 0 ? 'text-veg' : undefined}
           />
-          {shortfall > 0 && (
-            <p className="text-meta text-saffron-deep">
-              Add {formatPrice(shortfall)} more for free delivery
-            </p>
-          )}
           <div className="!mt-3 flex items-center justify-between border-t border-line pt-3">
             <span className="text-[0.9375rem] font-bold text-ink">Total</span>
             <span className="text-h3 text-ink">{formatPrice(totals.total)}</span>
           </div>
         </div>
+
+        <p className="mt-2 text-meta text-ink-mute">
+          Price shown is an estimate and may not include all delivery and other charges — the
+          final amount is confirmed in Instamart before you pay.
+        </p>
 
         <div className="mt-4 flex items-center gap-2 text-meta text-ink-soft">
           <Truck size={15} className="text-ink-mute" />

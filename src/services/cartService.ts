@@ -40,11 +40,6 @@ export function priceCart(cart: Cart): CartTotals {
   }
 }
 
-export function freeDeliveryShortfall(totals: CartTotals): number {
-  if (totals.subtotal === 0 || totals.subtotal >= FREE_DELIVERY_OVER) return 0
-  return FREE_DELIVERY_OVER - totals.subtotal
-}
-
 /**
  * Hand the cart to Instamart. This creates or updates a vendor-side basket —
  * it does NOT place an order. Checkout is a separate, explicit step.

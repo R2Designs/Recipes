@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import type { Collection } from '@/types/recipe'
 import { getRecipe, totalTime } from '@/data/recipes'
@@ -12,6 +12,7 @@ import { formatDuration, formatPrice } from '@/lib/utils'
  * grid — a rail of identical cards would read as duplicated content.
  */
 export function CollectionRow({ collection }: { collection: Collection }) {
+  const location = useLocation()
   const recipes = collection.recipeSlugs.map(getRecipe).filter((r) => r != null)
   if (!recipes.length) return null
 
@@ -32,7 +33,7 @@ export function CollectionRow({ collection }: { collection: Collection }) {
         </div>
       </div>
 
-      <div className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 sm:px-6">
+      <div className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-pl-4 px-4 pb-2 sm:scroll-pl-6 sm:px-6">
         {/* Centres the rail on wide screens without breaking the edge-to-edge scroll. */}
         <div className="hidden shrink-0 xl:block xl:w-[max(0px,calc((100vw-72rem)/2))]" />
 
@@ -40,6 +41,7 @@ export function CollectionRow({ collection }: { collection: Collection }) {
           <Link
             key={recipe.slug}
             to={`/recipe/${recipe.slug}`}
+            state={{ backgroundLocation: location }}
             className="group w-[248px] shrink-0 snap-start sm:w-[272px]"
           >
             <div className="relative aspect-[3/4] overflow-hidden rounded-card shadow-card">

@@ -34,12 +34,8 @@ export default function Home() {
         <IntentChips />
       </div>
 
-      {/* Editorial rails first — browsing before deciding is the whole point. */}
-      {!loading &&
-        collections.slice(0, 2).map((collection) => (
-          <CollectionRow key={collection.id} collection={collection} />
-        ))}
-
+      {/* Popular grid first — the fastest path to "just show me food." Regional
+          rails (a slower, more editorial browse) follow it. */}
       <section className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6">
         <div className="mb-5 flex items-end justify-between gap-4">
           <div>
@@ -64,9 +60,7 @@ export default function Home() {
       </section>
 
       {!loading &&
-        collections.slice(2).map((collection) => (
-          <CollectionRow key={collection.id} collection={collection} />
-        ))}
+        collections.map((collection) => <CollectionRow key={collection.id} collection={collection} />)}
     </>
   )
 }

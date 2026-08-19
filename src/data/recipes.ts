@@ -677,29 +677,44 @@ export function totalTime(recipe: Recipe): number {
   return recipe.prepTimeMins + recipe.cookTimeMins
 }
 
+/**
+ * Regional, not generic — "Flavours of Punjab" is a reason to click,
+ * "Easy dinners" is a filter with extra steps. Every rail here is a real
+ * place or a real regional repertoire, not a difficulty/time bucket.
+ */
 export const COLLECTIONS: Collection[] = [
   {
-    id: 'col-breakfast',
-    title: 'Breakfast worth waking up for',
-    subtitle: 'South Indian mornings, done properly',
-    recipeSlugs: ['masala-dosa', 'idli-sambar', 'medu-vada', 'kerala-veg-stew', 'masala-chai'],
+    id: 'col-south',
+    title: 'South Indian Kitchen',
+    subtitle: 'Fermented, tempered, built around rice and lentil',
+    recipeSlugs: [
+      'masala-dosa',
+      'idli-sambar',
+      'medu-vada',
+      'lemon-rice',
+      'bisi-bele-bath',
+      'kerala-veg-stew',
+      'coconut-prawn-curry',
+    ],
   },
   {
-    id: 'col-under-30',
-    title: 'On the table in 30 minutes',
-    subtitle: 'For weeknights that got away from you',
-    recipeSlugs: ['lemon-rice', 'chana-masala', 'hakka-noodles', 'pesto-pasta', 'masala-chai', 'aloo-gobi'],
+    id: 'col-punjab',
+    title: 'Flavours of Punjab',
+    subtitle: 'Butter, tandoor smoke, and no half measures',
+    recipeSlugs: [
+      'butter-chicken',
+      'paneer-butter-masala',
+      'chole-bhature',
+      'rajma-chawal',
+      'baingan-bharta',
+      'aloo-gobi',
+      'tandoori-chicken',
+    ],
   },
   {
-    id: 'col-crowd',
-    title: 'Cooking for a crowd',
-    subtitle: 'Scales up without falling apart',
-    recipeSlugs: ['hyderabadi-chicken-biryani', 'pav-bhaji', 'chole-bhature', 'bisi-bele-bath', 'paneer-butter-masala'],
-  },
-  {
-    id: 'col-protein',
-    title: 'High protein, still delicious',
-    subtitle: 'No sad chicken breast in sight',
-    recipeSlugs: ['tandoori-chicken', 'rajma-chawal', 'coconut-prawn-curry', 'medu-vada', 'butter-chicken'],
+    id: 'col-mumbai',
+    title: 'Mumbai Street Food',
+    subtitle: "The city that never stops eating, after dark especially",
+    recipeSlugs: ['pav-bhaji', 'vada-pav', 'samosa', 'hakka-noodles'],
   },
 ]
