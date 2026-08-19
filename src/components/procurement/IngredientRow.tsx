@@ -90,7 +90,9 @@ export function IngredientRow({
 
           {/* Product line + stepper/price, desktop only — mobile gets its own row below. */}
           <div className="mt-0.5 hidden items-baseline justify-between gap-3 sm:flex">
-            {product ? (
+            {line.alreadyHave ? (
+              <p className="text-meta font-semibold text-veg">Already have this — won't be added</p>
+            ) : product ? (
               <button onClick={onOpenSwap} className="min-w-0 text-left">
                 <p className="truncate text-meta text-ink-soft">
                   {product.brand} · {product.packLabel}
@@ -113,7 +115,9 @@ export function IngredientRow({
 
           {/* Product line only, mobile — stepper/price move to their own row. */}
           <p className="mt-0.5 truncate text-meta sm:hidden">
-            {product ? (
+            {line.alreadyHave ? (
+              <span className="font-semibold text-veg">Already have this — won't be added</span>
+            ) : product ? (
               <button onClick={onOpenSwap} className="text-ink-soft">
                 {product.brand} · {product.packLabel}
               </button>
