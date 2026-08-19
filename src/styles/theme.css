@@ -64,10 +64,17 @@
    */
   --color-scrim: #000000;
 
-  /* ── Accent ──────────────────────────────────────────────── */
-  --color-saffron: #f0900f;
-  --color-saffron-deep: #d97706;
-  --color-saffron-wash: #2b1c0c;
+  /*
+   * ── Accent ──────────────────────────────────────────────────
+   * Still named "saffron" throughout the codebase (every `bg-saffron`,
+   * `text-saffron-deep`, etc.) even though the actual color is now a jade
+   * green — renaming the token would mean touching every call site for a
+   * purely cosmetic reason. The three values below are the only place the
+   * accent hue is defined; every component follows automatically.
+   */
+  --color-saffron: #16b378;
+  --color-saffron-deep: #0f8f5e;
+  --color-saffron-wash: #0a2b21;
 
   /* ── Semantic ────────────────────────────────────────────── */
   --color-veg: #22c55e;

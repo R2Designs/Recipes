@@ -44,6 +44,17 @@ export default function RecipeDetail() {
     }
   }, [slug, selectRecipe])
 
+  // Scroll-snap is scoped to this page, not global — it's set on the document's
+  // scrolling element only while a recipe is open, and cleaned up on unmount so
+  // Home/Search/Cart keep their normal free scroll.
+  useEffect(() => {
+    const root = document.documentElement
+    root.classList.add('snap-y', 'snap-mandatory')
+    return () => {
+      root.classList.remove('snap-y', 'snap-mandatory')
+    }
+  }, [])
+
   // Preview the scaled list so the CTA can say how many items it's about to add.
   const shoppingList = useMemo(() => {
     if (!recipe) return []
@@ -62,7 +73,7 @@ export default function RecipeDetail() {
   return (
     <div className="pb-28">
       {/* ── Hero ────────────────────────────────────────── */}
-      <div className="relative">
+      <div className="relative snap-start scroll-mt-16">
         <div className="relative h-[46vh] min-h-[280px] w-full overflow-hidden sm:h-[52vh] sm:min-h-[380px]">
           <FoodImage src={recipe.image} alt={recipe.name} eager />
           {/* Two stacked scrims: a deep one anchored to the caption, a light one
@@ -106,7 +117,8 @@ export default function RecipeDetail() {
         </div>
       </div>
 
-      <div className="mx-auto w-full max-w-5xl px-4 sm:px-6">
+      {/* ── Meta + About ──────────────────────────────────── */}
+      <div className="mx-auto w-full max-w-5xl snap-start scroll-mt-16 px-4 sm:px-6">
         {/* ── Meta strip ────────────────────────────────── */}
         <div className="grid grid-cols-2 gap-px overflow-hidden rounded-card border border-line bg-line sm:grid-cols-4">
           <MetaCell icon={<Clock size={16} />} label="Total time" value={formatDuration(time)} />
@@ -168,9 +180,11 @@ export default function RecipeDetail() {
             </div>
           </div>
         </section>
+      </div>
 
-        {/* ── Taste + creators ──────────────────────────── */}
-        {(recipe.variants.length > 0 || recipe.creators.length > 0) && (
+      {/* ── Taste + creators ──────────────────────────────── */}
+      {(recipe.variants.length > 0 || recipe.creators.length > 0) && (
+        <div className="mx-auto w-full max-w-5xl snap-start scroll-mt-16 px-4 sm:px-6">
           <section className="py-8">
             <SectionHead
               eyebrow="Step 1"
@@ -192,9 +206,11 @@ export default function RecipeDetail() {
               onSelectCreator={selection.setCreator}
             />
           </section>
-        )}
+        </div>
+      )}
 
-        {/* ── Servings ──────────────────────────────────── */}
+      {/* ── Servings ──────────────────────────────────────── */}
+      <div className="mx-auto w-full max-w-5xl snap-start scroll-mt-16 px-4 sm:px-6">
         <section className="py-8">
           <SectionHead
             eyebrow="Step 2"
