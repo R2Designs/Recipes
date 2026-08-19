@@ -177,7 +177,7 @@ export function Splash({ onDone }: { onDone: () => void }) {
           <div className="absolute inset-0 grid place-items-center px-6">
             <div className="flex flex-col items-center">
               <motion.h1
-                className="text-center font-display text-[clamp(3rem,13vw,7.5rem)] font-black leading-none tracking-[-0.02em] text-ink"
+                className="text-center heading-display text-[clamp(3rem,13vw,7.5rem)] leading-none tracking-[-0.02em] text-ink"
                 initial={hold ? { opacity: 1, y: 0 } : { opacity: 0, y: 18, filter: 'blur(6px)' }}
                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                 exit={{ opacity: 0, filter: 'blur(8px)', scale: 0.97 }}

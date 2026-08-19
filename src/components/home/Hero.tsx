@@ -38,7 +38,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="text-display font-display text-balance text-ink"
+          className="text-display heading-display text-balance text-ink"
         >
           What do you feel like making?
         </motion.h1>

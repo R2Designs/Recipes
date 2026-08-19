@@ -46,7 +46,7 @@ export function Sheet({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={onClose}
-            className="absolute inset-0 bg-ink/35 backdrop-blur-[2px]"
+            className="absolute inset-0 bg-scrim/35 backdrop-blur-[2px]"
           />
 
           <motion.div

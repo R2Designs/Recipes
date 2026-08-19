@@ -82,7 +82,7 @@ export function FoodImage({ src, alt, className, fill = true, eager, rounded }: 
       className={cn('relative overflow-hidden bg-sunk', fill && 'size-full', rounded, className)}
       style={
         state === 'failed'
-          ? { background: `linear-gradient(140deg, hsl(${hue} 62% 88%), hsl(${hue + 22} 58% 72%))` }
+          ? { background: `linear-gradient(140deg, hsl(${hue} 38% 16%), hsl(${hue + 22} 42% 10%))` }
           : undefined
       }
     >
@@ -106,8 +106,8 @@ export function FoodImage({ src, alt, className, fill = true, eager, rounded }: 
       {state === 'failed' && (
         <div className="absolute inset-0 grid place-items-center">
           <span
-            className="text-2xl font-extrabold tracking-tight opacity-45"
-            style={{ color: `hsl(${hue} 55% 26%)` }}
+            className="text-2xl font-extrabold tracking-tight opacity-50"
+            style={{ color: `hsl(${hue} 55% 78%)` }}
           >
             {monogram}
           </span>

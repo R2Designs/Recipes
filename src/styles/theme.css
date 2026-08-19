@@ -32,34 +32,49 @@
 }
 
 /* ────────────────────────────────────────────────────────────────
-   Recipes — "Saffron Modern"
-   Warm off-white paper, warm-black ink, saffron-amber accent.
+   Recipes — "Saffron Modern" (dark)
+   Near-black paper, warm off-white ink, saffron-amber accent.
    No raw hex belongs in a component. Everything routes through here.
+   Every value below was picked and checked against a black page, not
+   ported from a light palette by inverting lightness — food photography
+   is the thing that has to pop here, and pure inversion (dark ink,
+   pale washes) reads as broken rather than dark-mode-designed.
    ──────────────────────────────────────────────────────────────── */
 
 @theme {
   /* ── Surface ─────────────────────────────────────────────── */
-  --color-paper: #fffdf8;
-  --color-surface: #ffffff;
-  --color-sunk: #f7f3ea;
-  --color-sunk-deep: #efe8da;
+  --color-paper: #0a0a0a;
+  --color-surface: #161311;
+  --color-sunk: #121010;
+  --color-sunk-deep: #1e1a17;
 
   /* ── Ink ─────────────────────────────────────────────────── */
-  --color-ink: #18181b;
-  --color-ink-soft: #52525b;
-  --color-ink-mute: #a1a1aa;
+  --color-ink: #f5f1e8;
+  --color-ink-soft: #b9b2a4;
+  --color-ink-mute: #78716c;
+
+  /*
+   * Always-black, deliberately NOT theme-relative. Photo scrims, modal
+   * backdrops and play-button circles all need to darken whatever's behind
+   * them — that's true regardless of app theme. Before this token existed
+   * they borrowed --color-ink for the job, which happened to work in light
+   * mode (ink was dark) and would have silently inverted to a near-white
+   * wash-out the moment ink became light text here. Never repoint these
+   * five call sites back to `ink`.
+   */
+  --color-scrim: #000000;
 
   /* ── Accent ──────────────────────────────────────────────── */
-  --color-saffron: #d97706;
-  --color-saffron-deep: #b45309;
-  --color-saffron-wash: #fef3e2;
+  --color-saffron: #f0900f;
+  --color-saffron-deep: #d97706;
+  --color-saffron-wash: #2b1c0c;
 
   /* ── Semantic ────────────────────────────────────────────── */
-  --color-veg: #15803d;
-  --color-nonveg: #7f1d1d;
-  --color-egg: #b45309;
-  --color-line: #ede7da;
-  --color-line-soft: #f4efe4;
+  --color-veg: #22c55e;
+  --color-nonveg: #ef4444;
+  --color-egg: #f59e0b;
+  --color-line: #26221f;
+  --color-line-soft: #1c1917;
 
   /* ── Type ────────────────────────────────────────────────── */
   --font-sans: 'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif;
@@ -107,11 +122,15 @@
   --radius-tile: 14px;
   --radius-pill: 999px;
 
-  /* ── Shadow — warm-tinted, never neutral gray ────────────── */
-  --shadow-card: 0 1px 2px rgb(120 90 40 / 0.04), 0 8px 24px rgb(120 90 40 / 0.06);
-  --shadow-lift: 0 2px 4px rgb(120 90 40 / 0.06), 0 16px 40px rgb(120 90 40 / 0.1);
-  --shadow-bar: 0 -8px 24px rgb(120 90 40 / 0.08);
-  --shadow-pop: 0 4px 8px rgb(120 90 40 / 0.08), 0 24px 56px rgb(120 90 40 / 0.16);
+  /*
+   * Shadow — pure black, not warm-tinted. A warm-brown shadow (the light-mode
+   * approach) reads as mud on a surface that's already near-black; depth here
+   * comes from surface/paper contrast plus a plain black cast for grounding.
+   */
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px rgb(0 0 0 / 0.5);
+  --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.5), 0 16px 40px rgb(0 0 0 / 0.6);
+  --shadow-bar: 0 -8px 24px rgb(0 0 0 / 0.6);
+  --shadow-pop: 0 4px 8px rgb(0 0 0 / 0.5), 0 24px 56px rgb(0 0 0 / 0.7);
 
   /* ── Motion ──────────────────────────────────────────────── */
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
@@ -121,6 +140,9 @@
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
+    /* Native UI (scrollbars, form control chrome, the mobile URL bar tint)
+       should follow the app rather than defaulting to a light OS theme. */
+    color-scheme: dark;
   }
 
   body {
@@ -163,6 +185,27 @@
     .text-display {
       font-size: 3.25rem;
     }
+  }
+
+  /*
+   * Every display heading: hero, recipe title, section heads, page titles,
+   * the splash wordmark. Deliberately its own class rather than relying on
+   * Tailwind's auto-generated `font-display` (family only) plus the
+   * `--text-*--font-weight` companions on text-h1/h2/h3/display — those
+   * tokens are shared with a couple of non-heading uses (price totals) that
+   * need to stay bold and upright, so weight/style live here instead where
+   * they only ever apply where this class is explicitly used.
+   *
+   * Weight is pinned to 400 on purpose, not the semantically "medium" 500:
+   * PP Editorial New ships only Ultralight/Regular/Ultrabold as static
+   * files, no true Medium italic exists to request, and asking for 500
+   * would just resolve to the same 400-weight glyphs via nearest-match —
+   * better to say what's actually there.
+   */
+  .heading-display {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
   }
 
   .tap-safe {

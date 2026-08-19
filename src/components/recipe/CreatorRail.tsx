@@ -45,7 +45,7 @@ export function CreatorRail({
               />
               {creator.hasVideo && (
                 <span className="absolute inset-0 grid place-items-center">
-                  <span className="grid size-11 place-items-center rounded-full bg-ink/55 backdrop-blur-sm transition-transform duration-200 group-hover:scale-110">
+                  <span className="grid size-11 place-items-center rounded-full bg-scrim/55 backdrop-blur-sm transition-transform duration-200 group-hover:scale-110">
                     <Play size={16} className="ml-0.5 fill-white text-white" />
                   </span>
                 </span>

@@ -20,7 +20,7 @@ export function CollectionRow({ collection }: { collection: Collection }) {
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
         <div className="mb-4 flex items-end justify-between gap-4">
           <div>
-            <h2 className="text-h2 font-display text-ink">{collection.title}</h2>
+            <h2 className="text-h2 heading-display text-ink">{collection.title}</h2>
             <p className="mt-0.5 text-body text-ink-soft">{collection.subtitle}</p>
           </div>
           <Link
@@ -49,7 +49,7 @@ export function CollectionRow({ collection }: { collection: Collection }) {
                 className="transition-transform duration-[600ms] ease-out group-hover:scale-[1.05]"
               />
               {/* Scrim so the caption stays legible over any photo. */}
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/85 via-ink/35 to-transparent p-4 pt-14">
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-scrim/85 via-scrim/35 to-transparent p-4 pt-14">
                 <div className="mb-1.5 flex items-center gap-2">
                   <VegIndicator value={recipe.vegClass} size={12} />
                   <span className="text-micro uppercase text-white/75">

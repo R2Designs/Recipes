@@ -68,8 +68,8 @@ export default function RecipeDetail() {
           <FoodImage src={recipe.image} alt={recipe.name} eager />
           {/* Two stacked scrims: a deep one anchored to the caption, a light one
               overall. A single gradient can't hold text over a bright photo. */}
-          <div className="absolute inset-0 bg-gradient-to-t from-ink/95 via-ink/45 via-45% to-transparent" />
-          <div className="absolute inset-0 bg-ink/15" />
+          <div className="absolute inset-0 bg-gradient-to-t from-scrim/95 via-scrim/45 via-45% to-transparent" />
+          <div className="absolute inset-0 bg-scrim/15" />
         </div>
 
         <button
@@ -94,7 +94,7 @@ export default function RecipeDetail() {
                 </span>
               </div>
 
-              <h1 className="text-h1 font-display text-balance text-white sm:text-[2.75rem]">{recipe.name}</h1>
+              <h1 className="text-h1 heading-display text-balance text-white sm:text-[2.75rem]">{recipe.name}</h1>
               <p className="mt-1.5 text-[1.0625rem] text-white/80">{recipe.tagline}</p>
 
               {recipe.rating && (
