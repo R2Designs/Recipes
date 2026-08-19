@@ -34,8 +34,14 @@ export function CollectionRow({ collection }: { collection: Collection }) {
       </div>
 
       <div className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-pl-4 px-4 pb-2 sm:scroll-pl-6 sm:px-6">
-        {/* Centres the rail on wide screens without breaking the edge-to-edge scroll. */}
-        <div className="hidden shrink-0 xl:block xl:w-[max(0px,calc((100vw-72rem)/2))]" />
+        {/* Centres the rail on wide screens without breaking the edge-to-edge scroll.
+            `snap-start` here too: without it, this spacer isn't a valid snap point, so
+            on any row with enough cards to overflow, the browser's initial snap pass
+            jumps straight to card 1 and skips the spacer — silently eating the left
+            gutter on wide screens exactly like the padding bug on mobile did. Rows with
+            too few cards to overflow never hit this, which is why some rails looked
+            correctly aligned and others didn't. */}
+        <div className="hidden shrink-0 snap-start xl:block xl:w-[max(0px,calc((100vw-72rem)/2))]" />
 
         {recipes.map((recipe) => (
           <Link
