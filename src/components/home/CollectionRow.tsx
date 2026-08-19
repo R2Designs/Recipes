@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import type { Collection } from '@/types/recipe'
 import { getRecipe, totalTime } from '@/data/recipes'
@@ -13,7 +13,6 @@ import { cn, formatDuration, formatPrice } from '@/lib/utils'
  * grid — a rail of identical cards would read as duplicated content.
  */
 export function CollectionRow({ collection }: { collection: Collection }) {
-  const location = useLocation()
   const railRef = useRef<HTMLDivElement>(null)
   const [showRightFade, setShowRightFade] = useState(false)
   const recipes = collection.recipeSlugs.map(getRecipe).filter((r) => r != null)
@@ -73,7 +72,6 @@ export function CollectionRow({ collection }: { collection: Collection }) {
             <Link
               key={recipe.slug}
               to={`/recipe/${recipe.slug}`}
-              state={{ backgroundLocation: location }}
               className="group w-[248px] shrink-0 snap-start sm:w-[272px]"
             >
               <div className="relative aspect-[3/4] overflow-hidden rounded-card shadow-card">

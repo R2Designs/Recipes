@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { motion } from 'motion/react'
 import { Search, ArrowRight } from 'lucide-react'
 import { useFilterStore } from '@/store/useFilterStore'
@@ -11,7 +11,6 @@ const QUICK_SEARCHES = ['Dosa', 'Biryani', 'Paneer', 'Chai', 'Noodles']
 
 export function Hero() {
   const navigate = useNavigate()
-  const location = useLocation()
   const setQuery = useFilterStore((s) => s.setQuery)
   const [value, setValue] = useState('')
   const [focused, setFocused] = useState(false)
@@ -94,9 +93,7 @@ export function Hero() {
               {suggestions.map((r) => (
                 <button
                   key={r.slug}
-                  onMouseDown={() =>
-                    navigate(`/recipe/${r.slug}`, { state: { backgroundLocation: location } })
-                  }
+                  onMouseDown={() => navigate(`/recipe/${r.slug}`)}
                   className="flex w-full items-center gap-3 px-3 py-2 transition-colors hover:bg-sunk"
                 >
                   <div className="size-10 shrink-0 overflow-hidden rounded-[10px]">

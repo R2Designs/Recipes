@@ -38,7 +38,10 @@ export function TasteAndCreators({
             {variants.map((variant) => (
               <Chip
                 key={variant.id}
-                selected={variant.id === selectedVariantId}
+                // A chef's pick and a spice-level chip answer the same question —
+                // only one can read as "selected" at a time, so a chip never shows
+                // active while a creator row is.
+                selected={variant.id === selectedVariantId && !selectedCreatorId}
                 onClick={() => onSelectVariant(variant.id)}
               >
                 {variant.name}

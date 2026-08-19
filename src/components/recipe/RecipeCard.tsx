@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { motion } from 'motion/react'
 import type { Recipe } from '@/types/recipe'
 import { CUISINE_LABELS, DIFFICULTY_LABELS, DIETARY_LABELS, HEALTH_LABELS } from '@/types/domain'
@@ -12,7 +12,6 @@ import { totalTime } from '@/data/recipes'
  * margin — everything else is a caption under it.
  */
 export function RecipeCard({ recipe, index = 0 }: { recipe: Recipe; index?: number }) {
-  const location = useLocation()
   // At most two tags — a card with six pills stops reading as editorial.
   const tags = [
     ...recipe.dietaryTags.slice(0, 1).map((t) => ({ label: DIETARY_LABELS[t], veg: true })),
@@ -25,11 +24,7 @@ export function RecipeCard({ recipe, index = 0 }: { recipe: Recipe; index?: numb
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: Math.min(index * 0.04, 0.32), ease: [0.22, 1, 0.36, 1] }}
     >
-      <Link
-        to={`/recipe/${recipe.slug}`}
-        state={{ backgroundLocation: location }}
-        className="group block"
-      >
+      <Link to={`/recipe/${recipe.slug}`} className="group block">
         <div className="relative aspect-[4/3] overflow-hidden rounded-card shadow-card">
           <FoodImage
             src={recipe.image}

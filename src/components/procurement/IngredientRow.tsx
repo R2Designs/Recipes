@@ -65,7 +65,7 @@ export function IngredientRow({
               : 'border-line bg-surface text-transparent hover:border-ink-mute',
           )}
         >
-          <Check size={14} strokeWidth={3} />
+          {line.alreadyHave ? <X size={14} strokeWidth={3} /> : <Check size={14} strokeWidth={3} />}
         </button>
 
         <button
