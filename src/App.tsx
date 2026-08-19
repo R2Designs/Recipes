@@ -18,9 +18,14 @@ function ScrollToTop() {
 }
 
 export default function App() {
-  // The title sequence plays once per page load, and only when arriving at the
-  // homepage — landing deep (a shared recipe link) should go straight there.
-  const [introDone, setIntroDone] = useState(() => window.location.pathname !== '/')
+  // The title sequence plays once per page load, and only when arriving at
+  // the homepage — landing deep (a shared recipe link) should go straight
+  // there. Deliberately `useLocation()`, not `window.location.pathname`:
+  // BrowserRouter's `basename` already strips the deployment prefix
+  // ('/Recipes' on GitHub Pages), so this reads '/' at the true site root
+  // on every deployment target without needing to know the prefix itself.
+  const { pathname } = useLocation()
+  const [introDone, setIntroDone] = useState(() => pathname !== '/')
 
   return (
     <AppShell>
