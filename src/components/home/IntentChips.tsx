@@ -25,7 +25,6 @@ const INTENTS: Intent[] = [
   { label: 'High protein', kind: 'health', value: 'high-protein' },
   { label: 'Healthy', kind: 'health', value: 'low-calorie' },
   { label: 'Vegetarian', kind: 'dietary', value: 'vegetarian' },
-  { label: 'Vegan', kind: 'dietary', value: 'vegan' },
 ]
 
 export function IntentChips() {
