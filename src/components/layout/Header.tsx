@@ -1,6 +1,7 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { Search, ShoppingBasket, UserRound } from 'lucide-react'
 import logoMark from '@/assets/logo/logo-mark.svg'
+import logoFull from '@/assets/logo/logo-full.svg'
 import { useCartStore } from '@/store/useCartStore'
 import { orderableLines } from '@/services/cartService'
 import { MEAL_LABELS } from '@/types/domain'
@@ -31,11 +32,9 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-paper/85 backdrop-blur-lg">
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-3 px-4 sm:px-6">
-        <Link to="/" className="mr-1 flex items-center gap-2" aria-label="Recipes — home">
-          <img src={logoMark} alt="" className="size-8" />
-          <span className="heading-display hidden text-[1.375rem] leading-none text-ink sm:block">
-            Recipes
-          </span>
+        <Link to="/" className="mr-1 flex items-center" aria-label="Recipes — home">
+          <img src={logoMark} alt="" className="size-8 sm:hidden" />
+          <img src={logoFull} alt="Recipes" className="hidden h-9 w-auto sm:block" />
         </Link>
 
         {/* Meal nav — desktop only; mobile uses the bottom nav and intent chips. */}
