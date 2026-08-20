@@ -5,6 +5,7 @@ import { AppShell } from '@/components/layout/AppShell'
 import Home from '@/pages/Home'
 import Search from '@/pages/Search'
 import RecipeDetail from '@/pages/RecipeDetail'
+import ChefDetail from '@/pages/ChefDetail'
 import Ingredients from '@/pages/Ingredients'
 import Cart from '@/pages/Cart'
 import OrderSuccess from '@/pages/OrderSuccess'
@@ -42,6 +43,7 @@ export default function App() {
         <Route path="/search" element={<Search />} />
         <Route path="/recipe/:slug" element={<RecipeDetail />} />
         <Route path="/recipe/:slug/ingredients" element={<Ingredients />} />
+        <Route path="/chef/:slug" element={<ChefDetail />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/order/success" element={<OrderSuccess />} />
         <Route path="*" element={<NotFound />} />

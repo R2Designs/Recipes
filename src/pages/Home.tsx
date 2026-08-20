@@ -6,7 +6,9 @@ import { getFeaturedCollections, listRecipes } from '@/services/recipeService'
 import { Hero } from '@/components/home/Hero'
 import { IntentChips } from '@/components/home/IntentChips'
 import { CollectionRow } from '@/components/home/CollectionRow'
+import { ChefRail } from '@/components/home/ChefRail'
 import { RecipeCard, RecipeCardSkeleton } from '@/components/recipe/RecipeCard'
+import { CHEFS } from '@/data/chefs'
 
 export default function Home() {
   const [recipes, setRecipes] = useState<Recipe[]>([])
@@ -58,6 +60,11 @@ export default function Home() {
               ))}
         </div>
       </section>
+
+      {/* Chefs sit between the grid and the regional rails deliberately — it's
+          a change of pace, and it stops the page being six variations on the
+          same food card all the way down. */}
+      <ChefRail chefs={CHEFS} />
 
       {!loading &&
         collections.map((collection) => <CollectionRow key={collection.id} collection={collection} />)}
