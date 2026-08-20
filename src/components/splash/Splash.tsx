@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
+import logoFull from '@/assets/logo/logo-full.svg'
 import dosa from '@/assets/splash/dosa.webp'
 import pasta from '@/assets/splash/pasta.webp'
 import salad from '@/assets/splash/salad.webp'
@@ -176,15 +177,15 @@ export function Splash({ onDone }: { onDone: () => void }) {
           {/* ── Centre ─────────────────────────────────── */}
           <div className="absolute inset-0 grid place-items-center px-6">
             <div className="flex flex-col items-center">
-              <motion.h1
-                className="text-center heading-display text-[clamp(3rem,13vw,7.5rem)] leading-none tracking-[-0.02em] text-ink"
+              <motion.img
+                src={logoFull}
+                alt="Recipes"
+                className="h-[clamp(4.5rem,18vw,11rem)] w-auto"
                 initial={hold ? { opacity: 1, y: 0 } : { opacity: 0, y: 18, filter: 'blur(6px)' }}
                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                 exit={{ opacity: 0, filter: 'blur(8px)', scale: 0.97 }}
                 transition={{ duration: leaving ? 0.4 : 0.85, ease: [0.16, 1, 0.3, 1] }}
-              >
-                Reciiiipes
-              </motion.h1>
+              />
 
               <motion.p
                 className="mt-3 text-center text-[clamp(0.9375rem,2.6vw,1.5rem)] text-ink-mute"
