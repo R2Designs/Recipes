@@ -19,8 +19,6 @@ interface CartState {
   buildCart: (input: BuildCartInput) => void
   toggleAlreadyHave: (lineId: string) => void
   setPackQty: (lineId: string, packQty: number) => void
-  removeLine: (lineId: string) => void
-  restoreLine: (lineId: string) => void
   swapProduct: (lineId: string, product: Product) => void
   setVendorCartId: (id: string | null) => void
   clear: () => void
@@ -117,30 +115,6 @@ export const useCartStore = create<CartState>()(
               lines: s.cart.lines.map((l) =>
                 l.lineId === lineId ? { ...l, packQty: Math.max(1, Math.min(20, packQty)) } : l,
               ),
-            },
-          })
-        }),
-
-      removeLine: (lineId) =>
-        set((s) => {
-          if (!s.cart) return s
-          return invalidate({
-            ...s,
-            cart: {
-              ...s.cart,
-              lines: s.cart.lines.map((l) => (l.lineId === lineId ? { ...l, removed: true } : l)),
-            },
-          })
-        }),
-
-      restoreLine: (lineId) =>
-        set((s) => {
-          if (!s.cart) return s
-          return invalidate({
-            ...s,
-            cart: {
-              ...s.cart,
-              lines: s.cart.lines.map((l) => (l.lineId === lineId ? { ...l, removed: false } : l)),
             },
           })
         }),

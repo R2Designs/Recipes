@@ -1,12 +1,11 @@
-import { Check, RotateCcw, X } from 'lucide-react'
+import { Check, X } from 'lucide-react'
 import type { CartLine } from '@/types/cart'
 import { Stepper } from '@/components/ui/Stepper'
-import { IconButton } from '@/components/ui/Button'
 import { formatPrice, cn } from '@/lib/utils'
 
 /**
  * One shopping-list line: what the recipe needs, what we'd buy for it, and
- * the three controls the spec calls out explicitly — quantity, remove, and
+ * the two controls the spec calls out explicitly — quantity and
  * "I already have this".
  *
  * Two layouts share one DOM: on mobile, product info and the quantity
@@ -17,36 +16,14 @@ export function IngredientRow({
   line,
   onToggleHave,
   onSetPackQty,
-  onRemove,
-  onRestore,
   onOpenSwap,
 }: {
   line: CartLine
   onToggleHave: () => void
   onSetPackQty: (qty: number) => void
-  onRemove: () => void
-  onRestore: () => void
   onOpenSwap: () => void
 }) {
   const { ingredient, product } = line
-
-  if (line.removed) {
-    return (
-      <div className="flex items-center justify-between gap-3 py-3 opacity-60">
-        <div className="min-w-0">
-          <p className="truncate text-[0.9375rem] text-ink-mute line-through">{ingredient.name}</p>
-          <p className="text-meta text-ink-mute">Removed</p>
-        </div>
-        <button
-          onClick={onRestore}
-          className="flex shrink-0 items-center gap-1 text-meta font-bold text-saffron-deep hover:text-saffron"
-        >
-          <RotateCcw size={13} /> Undo
-        </button>
-      </div>
-    )
-  }
-
   const showStepper = product && !line.alreadyHave
 
   return (
@@ -111,10 +88,6 @@ export function IngredientRow({
             )}
           </p>
         </div>
-
-        <IconButton label={`Remove ${ingredient.name}`} onClick={onRemove} className="shrink-0">
-          <X size={16} />
-        </IconButton>
       </div>
 
       {/* Mobile-only second row: quantity + price get full-size tap targets

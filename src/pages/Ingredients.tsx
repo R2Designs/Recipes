@@ -102,7 +102,6 @@ export default function Ingredients() {
   const lines = cart?.lines ?? []
   const totals = cart ? priceCart(cart) : null
   const activeLines = lines.filter((l) => !l.removed)
-  const removedLines = lines.filter((l) => l.removed)
   const orderable = cart ? orderableLines(cart) : []
 
   return (
@@ -154,8 +153,6 @@ export default function Ingredients() {
                     line={line}
                     onToggleHave={() => cartStore.toggleAlreadyHave(line.lineId)}
                     onSetPackQty={(qty) => cartStore.setPackQty(line.lineId, qty)}
-                    onRemove={() => cartStore.removeLine(line.lineId)}
-                    onRestore={() => cartStore.restoreLine(line.lineId)}
                     onOpenSwap={() => setSwapIngredient(line.ingredient)}
                   />
                 ))}
@@ -164,40 +161,9 @@ export default function Ingredients() {
           {!matching && activeLines.length === 0 && (
             <EmptyState
               icon={<PackageSearch size={22} />}
-              title="Nothing left on the list"
-              body="You’ve removed every ingredient. Undo below, or head back and pick something else to cook."
-              action={
-                removedLines.length > 0 ? (
-                  <Button
-                    variant="secondary"
-                    onClick={() => removedLines.forEach((l) => cartStore.restoreLine(l.lineId))}
-                  >
-                    Undo all removals
-                  </Button>
-                ) : undefined
-              }
+              title="Nothing to shop for"
+              body="Head back and pick something else to cook."
             />
-          )}
-
-          {!matching && removedLines.length > 0 && (
-            <div className="mt-2">
-              <p className="mb-1 text-micro uppercase text-ink-mute">
-                {pluralise(removedLines.length, 'item')} removed
-              </p>
-              <div className="divide-y divide-line">
-                {removedLines.map((line) => (
-                  <IngredientRow
-                    key={line.lineId}
-                    line={line}
-                    onToggleHave={() => cartStore.toggleAlreadyHave(line.lineId)}
-                    onSetPackQty={(qty) => cartStore.setPackQty(line.lineId, qty)}
-                    onRemove={() => cartStore.removeLine(line.lineId)}
-                    onRestore={() => cartStore.restoreLine(line.lineId)}
-                    onOpenSwap={() => setSwapIngredient(line.ingredient)}
-                  />
-                ))}
-              </div>
-            </div>
           )}
         </div>
       </div>

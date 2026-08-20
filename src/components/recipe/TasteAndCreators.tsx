@@ -59,9 +59,15 @@ export function TasteAndCreators({
 }) {
   if (variants.length === 0 && creators.length === 0) return null
 
+  // Mildest first — the list otherwise follows whatever order the recipe
+  // data happens to define, which isn't necessarily heat order.
+  const sortedVariants = [...variants].sort(
+    (a, b) => SPICE_HEAT[a.spiceLevel] - SPICE_HEAT[b.spiceLevel],
+  )
+
   return (
     <div className="divide-y divide-line rounded-card border border-line bg-surface">
-      {variants.map((variant) => {
+      {sortedVariants.map((variant) => {
         const selected = variant.id === selectedVariantId && !selectedCreatorId
         return (
           <button
