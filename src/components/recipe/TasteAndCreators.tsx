@@ -1,26 +1,35 @@
-import { Check, ExternalLink, Flame, Play } from 'lucide-react'
+import { Check, ExternalLink, Play } from 'lucide-react'
 import type { RecipeVariant, CreatorRecipe } from '@/types/recipe'
 import type { SpiceLevel } from '@/types/domain'
 import { DIFFICULTY_LABELS, SPICE_HEAT, SPICE_LABELS } from '@/types/domain'
-import { SpiceMeter } from '@/components/ui/primitives'
 import { formatDuration, cn } from '@/lib/utils'
+import spiceLevel1 from '@/assets/icons/spice/level1.svg'
+import spiceLevel2 from '@/assets/icons/spice/level2.svg'
+import spiceLevel3 from '@/assets/icons/spice/level3.svg'
+
+// Custom flame-cluster art, one per heat level — more flames spread wider
+// across the same canvas as it gets hotter. Only three drawings exist, so
+// "fiery" (heat 4) reuses the level-3 art rather than inventing a fourth
+// in a different style; swap in a real level-4 asset if one shows up.
+const SPICE_ICON: Record<number, string> = {
+  1: spiceLevel1,
+  2: spiceLevel2,
+  3: spiceLevel3,
+  4: spiceLevel3,
+}
 
 /**
- * The left badge for a spice-level row: four flames filled up to the
- * variant's heat, standing in for both the icon and the meter — replaces
- * a generic flame glyph (identical for every row, so it told you nothing)
- * plus a separate flame-dot row underneath.
+ * The left badge for a spice-level row — the custom flame-cluster artwork
+ * for that heat level, standing in for both the icon and the meter.
  */
 function SpiceBadge({ level }: { level: SpiceLevel }) {
   const heat = SPICE_HEAT[level]
   return (
     <div
       title={SPICE_LABELS[level]}
-      className="grid size-14 shrink-0 grid-cols-2 place-items-center gap-1 rounded-tile bg-saffron-wash p-2.5 text-saffron-deep"
+      className="grid size-14 shrink-0 place-items-center rounded-tile bg-sunk p-2"
     >
-      {[1, 2, 3, 4].map((n) => (
-        <Flame key={n} size={13} className={n <= heat ? 'fill-current' : 'opacity-20'} />
-      ))}
+      <img src={SPICE_ICON[heat]} alt="" aria-hidden className="h-auto w-full object-contain" />
     </div>
   )
 }
@@ -121,12 +130,7 @@ export function TasteAndCreators({
               </div>
               <p className="mt-0.5 truncate text-[0.9375rem] font-semibold text-ink">{creator.title}</p>
               <p className="mt-0.5 line-clamp-1 text-meta text-ink-soft">{creator.blurb}</p>
-              <div className="mt-1 flex items-center gap-2">
-                <SpiceMeter level={creator.spiceLevel} />
-                <span className="text-micro uppercase text-ink-mute">
-                  {formatDuration(creator.timeMins)}
-                </span>
-              </div>
+              <p className="mt-1 text-micro uppercase text-ink-mute">{formatDuration(creator.timeMins)}</p>
             </div>
 
             <div className="flex shrink-0 flex-col items-end gap-1.5">

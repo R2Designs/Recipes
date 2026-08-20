@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react'
-import { Star, Flame } from 'lucide-react'
-import type { SpiceLevel, VegClass } from '@/types/domain'
-import { SPICE_HEAT, SPICE_LABELS } from '@/types/domain'
+import { Star } from 'lucide-react'
+import type { VegClass } from '@/types/domain'
 import { cn } from '@/lib/utils'
 
 /** Small labelled pill — dietary tags, health tags, difficulty. */
@@ -64,25 +63,6 @@ export function Rating({ value, count }: { value: number; count?: number }) {
       <Star size={13} className="fill-saffron text-saffron" />
       <span className="font-semibold text-ink">{value.toFixed(1)}</span>
       {count != null && <span className="text-ink-mute">({count.toLocaleString('en-IN')})</span>}
-    </span>
-  )
-}
-
-/** Flame glyphs, filled to the dish's heat. Reads faster than the word. */
-export function SpiceMeter({ level, showLabel }: { level: SpiceLevel; showLabel?: boolean }) {
-  const heat = SPICE_HEAT[level]
-  return (
-    <span className="inline-flex items-center gap-1" title={SPICE_LABELS[level]}>
-      <span className="flex items-center gap-px">
-        {[1, 2, 3, 4].map((n) => (
-          <Flame
-            key={n}
-            size={12}
-            className={n <= heat ? 'fill-saffron text-saffron' : 'text-line'}
-          />
-        ))}
-      </span>
-      {showLabel && <span className="text-meta text-ink-soft">{SPICE_LABELS[level]}</span>}
     </span>
   )
 }
