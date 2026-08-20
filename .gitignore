@@ -3,3 +3,9 @@ dist
 .DS_Store
 *.log
 node_modules/.vite
+.vercel
+
+# Real env values — .env.example documents the keys, never the values.
+.env
+.env.local
+.env.*.local

@@ -3,60 +3,78 @@ import type { Product } from '@/types/product'
 
 /**
  * ─────────────────────────────────────────────────────────────
- *  Swiggy Instamart MCP client — NOT IMPLEMENTED
+ *  Swiggy Instamart MCP client — the only file that knows Swiggy exists
  * ─────────────────────────────────────────────────────────────
  *
- * This is the ONLY file in the app that knows Swiggy exists. Everything above
- * it deals in `Product`, `Cart` and `Order`, so swapping vendors — or dropping
- * the grocery integration entirely — touches this file and nothing else.
+ * Everything above it deals in `Product`, `Cart` and `Order`, so swapping
+ * vendors — or dropping the grocery integration entirely — touches this
+ * file and nothing else.
  *
- * None of these functions work yet, and each throws rather than returning
- * plausible-looking fake data: a silent stub is how a demo accidentally
- * convinces someone a real order was placed. `cartService` and
- * `checkoutService` route around this file while `USE_MOCK` is true.
+ * Every function here calls our own `/api/instamart/*` backend, never
+ * Swiggy directly — Instamart session and credential handling cannot be
+ * done from browser code, so the real call path is:
  *
- * IMPORTANT: this must run server-side when it is implemented. Instamart
- * session and credential handling cannot be done from browser code, so the
- * real call path is:
+ *     Browser → /api/instamart/* → this client's server-side counterpart → Instamart
  *
- *     Browser → /api/cart, /api/checkout → this client → Instamart
- *
- * Capabilities below are stated as intentions, not as documented MCP features.
- * Anything the MCP turns out not to support stays a local concern (see
- * `getTrackingUrl`) rather than being faked here.
+ * `IS_CONNECTED` stays false until `VITE_INSTAMART_ENABLED=true` is set,
+ * which won't happen until there's a real Swiggy client ID and the `/api`
+ * routes do more than return 501. Until then `cartService` and
+ * `checkoutService` route around this file entirely via `USE_MOCK` — no
+ * behavior changes for anyone using the app today.
  */
 
-export class NotImplementedError extends Error {
-  constructor(capability: string) {
-    super(`Swiggy Instamart MCP not connected — ${capability} is unavailable.`)
-    this.name = 'NotImplementedError'
+export class InstamartApiError extends Error {
+  capability: string
+  status: number
+
+  constructor(capability: string, status: number) {
+    super(`Instamart request failed — ${capability} (HTTP ${status}).`)
+    this.name = 'InstamartApiError'
+    this.capability = capability
+    this.status = status
   }
 }
 
-/** Whether a real MCP connection is configured. Always false in the prototype. */
-export const IS_CONNECTED = false
+/** Whether a real MCP connection is configured. */
+export const IS_CONNECTED = import.meta.env.VITE_INSTAMART_ENABLED === 'true'
 
-/** Maps to: catalogue search for a location. Would replace the mock SKU list. */
-export async function searchCatalogue(_query: string, _pincode: string): Promise<Product[]> {
-  throw new NotImplementedError('catalogue search')
+async function callApi<T>(capability: string, path: string, init?: RequestInit): Promise<T> {
+  const res = await fetch(path, init)
+  if (!res.ok) throw new InstamartApiError(capability, res.status)
+  return res.json() as Promise<T>
 }
 
-/** Maps to: create or replace a vendor-side cart from our line items. */
-export async function createCart(_cart: Cart): Promise<{ vendorCartId: string }> {
-  throw new NotImplementedError('cart creation')
+/** Catalogue search for a location. Replaces the mock SKU list. */
+export async function searchCatalogue(query: string, pincode: string): Promise<Product[]> {
+  const params = new URLSearchParams({ q: query, pincode })
+  return callApi('catalogue search', `/api/instamart/search?${params}`)
 }
 
-/** Maps to: serviceability + ETA for a delivery address. */
-export async function getDeliveryEstimate(_pincode: string): Promise<{ etaMins: number }> {
-  throw new NotImplementedError('delivery estimates')
+/** Create or replace a vendor-side cart from our line items. */
+export async function createCart(cart: Cart): Promise<{ vendorCartId: string }> {
+  return callApi('cart creation', '/api/instamart/cart', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(cart),
+  })
+}
+
+/** Serviceability + ETA for a delivery address. */
+export async function getDeliveryEstimate(pincode: string): Promise<{ etaMins: number }> {
+  const params = new URLSearchParams({ pincode })
+  return callApi('delivery estimates', `/api/instamart/delivery-estimate?${params}`)
 }
 
 /**
- * Maps to: placing the order.
- * Guarded hardest of all — this is the irreversible one.
+ * Places the order. Guarded hardest of all — this is the irreversible one.
+ * Called from exactly one place in the UI: the user pressing "Confirm order".
  */
-export async function placeOrder(_vendorCartId: string): Promise<{ orderId: string }> {
-  throw new NotImplementedError('order placement')
+export async function placeOrder(vendorCartId: string): Promise<{ orderId: string }> {
+  return callApi('order placement', '/api/instamart/checkout', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ vendorCartId }),
+  })
 }
 
 /**
@@ -64,6 +82,9 @@ export async function placeOrder(_vendorCartId: string): Promise<{ orderId: stri
  *
  * Not assumed to exist. Until we know the MCP exposes tracking, this returns
  * null and the UI disables the button rather than linking somewhere hopeful.
+ * (Phase 6 will make this a real check against `/api/instamart/order/:id/track`
+ * if Swiggy's MCP turns out to support it — kept synchronous and null for now
+ * since nothing calls it yet.)
  */
 export function getTrackingUrl(_orderId: string): string | null {
   return null
