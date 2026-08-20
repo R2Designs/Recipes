@@ -7,8 +7,6 @@ import { suggestRecipes } from '@/services/recipeService'
 import { FoodImage } from '@/components/ui/FoodImage'
 import { CUISINE_LABELS } from '@/types/domain'
 
-const QUICK_SEARCHES = ['Dosa', 'Biryani', 'Paneer', 'Chai', 'Noodles']
-
 export function Hero() {
   const navigate = useNavigate()
   const setQuery = useFilterStore((s) => s.setQuery)
@@ -111,19 +109,6 @@ export function Hero() {
               ))}
             </div>
           )}
-
-          <div className="mt-3 flex flex-wrap items-center justify-center gap-x-1 gap-y-1 text-meta text-ink-mute">
-            <span className="mr-1">Popular:</span>
-            {QUICK_SEARCHES.map((q) => (
-              <button
-                key={q}
-                onClick={() => submit(q)}
-                className="rounded-pill px-2 py-0.5 font-semibold text-ink-soft underline-offset-2 transition-colors hover:bg-sunk hover:text-saffron-deep"
-              >
-                {q}
-              </button>
-            ))}
-          </div>
         </motion.div>
       </div>
     </section>

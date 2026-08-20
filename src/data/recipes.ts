@@ -717,4 +717,22 @@ export const COLLECTIONS: Collection[] = [
     subtitle: "The city that never stops eating, after dark especially",
     recipeSlugs: ['pav-bhaji', 'vada-pav', 'samosa', 'hakka-noodles'],
   },
+  {
+    id: 'col-rice',
+    title: 'Rice, Done Right',
+    subtitle: 'Biryani, bisi bele bath, lemon rice — when rice is the whole point, not the side',
+    recipeSlugs: ['hyderabadi-chicken-biryani', 'bisi-bele-bath', 'lemon-rice'],
+  },
+  {
+    id: 'col-global',
+    title: 'Global Comfort Food',
+    subtitle: 'Pizza, pasta, and the noodles everyone secretly wants',
+    recipeSlugs: ['margherita-pizza', 'pesto-pasta', 'hakka-noodles'],
+  },
+  {
+    id: 'col-teatime',
+    title: 'Tea-Time Treats',
+    subtitle: 'Momos, chai, and something sweet to finish',
+    recipeSlugs: ['masala-chai', 'veg-momos', 'mango-kulfi'],
+  },
 ]
