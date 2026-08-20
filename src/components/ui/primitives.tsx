@@ -10,13 +10,14 @@ export function Tag({
   className,
 }: {
   children: ReactNode
-  tone?: 'neutral' | 'veg' | 'saffron'
+  tone?: 'neutral' | 'veg' | 'saffron' | 'info'
   className?: string
 }) {
   const tones = {
     neutral: 'border-line bg-surface text-ink-soft',
     veg: 'border-veg/25 bg-veg/8 text-veg',
     saffron: 'border-saffron/25 bg-saffron-wash text-saffron-deep',
+    info: 'border-info/30 bg-info/10 text-info',
   }
   return (
     <span

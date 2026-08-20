@@ -153,7 +153,7 @@ export default function RecipeDetail() {
               </Tag>
             ))}
             {recipe.healthTags.map((t) => (
-              <Tag key={t} tone="saffron">
+              <Tag key={t} tone="info">
                 {HEALTH_LABELS[t]}
               </Tag>
             ))}

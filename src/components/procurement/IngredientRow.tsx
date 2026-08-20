@@ -1,6 +1,5 @@
 import { Check, RotateCcw, X } from 'lucide-react'
 import type { CartLine } from '@/types/cart'
-import { FoodImage } from '@/components/ui/FoodImage'
 import { Stepper } from '@/components/ui/Stepper'
 import { IconButton } from '@/components/ui/Button'
 import { formatPrice, cn } from '@/lib/utils'
@@ -68,20 +67,6 @@ export function IngredientRow({
           {line.alreadyHave ? <X size={14} strokeWidth={3} /> : <Check size={14} strokeWidth={3} />}
         </button>
 
-        <button
-          onClick={onOpenSwap}
-          className="size-[52px] shrink-0 overflow-hidden rounded-tile bg-sunk"
-          aria-label={`Change product for ${ingredient.name}`}
-        >
-          {product ? (
-            <FoodImage src={product.image} alt={product.name} rounded="rounded-tile" />
-          ) : (
-            <div className="grid size-full place-items-center text-ink-mute">
-              <X size={16} />
-            </div>
-          )}
-        </button>
-
         <div className="min-w-0 flex-1">
           <div className="flex items-baseline justify-between gap-2">
             <p className="truncate text-[0.9375rem] font-bold text-ink">{ingredient.name}</p>
@@ -135,7 +120,7 @@ export function IngredientRow({
       {/* Mobile-only second row: quantity + price get full-size tap targets
           instead of being squeezed into the main row. */}
       {showStepper && (
-        <div className="mt-2.5 flex items-center justify-end gap-3 pl-[76px] sm:hidden">
+        <div className="mt-2.5 flex items-center justify-end gap-3 pl-9 sm:hidden">
           <Stepper value={line.packQty} onChange={onSetPackQty} max={10} />
           <span className="w-16 shrink-0 text-right text-[0.9375rem] font-bold tabular-nums text-ink">
             {formatPrice(product!.price * line.packQty)}

@@ -79,6 +79,10 @@
   /* ── Semantic ────────────────────────────────────────────── */
   --color-veg: #22c55e;
   --color-nonveg: #ef4444;
+  /* Health tags (High protein, High fibre...) — a third hue so they don't
+     read as the same color as dietary tags now that the accent is also
+     green. Distinct from veg, non-veg and the accent on purpose. */
+  --color-info: #a78bfa;
   --color-egg: #f59e0b;
   --color-line: #26221f;
   --color-line-soft: #1c1917;
