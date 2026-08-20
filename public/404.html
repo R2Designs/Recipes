@@ -1,0 +1,23 @@
+<!doctype html>
+<!--
+  GitHub Pages serves static files — there's no /recipe/masala-dosa/index.html,
+  so a deep link or a refresh on any non-root route 404s here. This redirects
+  back to index.html with the intended path packed into the query string;
+  index.html unpacks it before React Router ever mounts. Standard pattern:
+  https://github.com/rafgraph/spa-github-pages
+
+  Only relevant on GitHub Pages — Vercel's rewrite (see vercel.json) handles
+  this properly server-side and never serves this file.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Recipes</title>
+    <script>
+      var base = '/Recipes'
+      var path = location.pathname.slice(base.length) + location.search + location.hash
+      location.replace(base + '/?redirect=' + encodeURIComponent(path))
+    </script>
+  </head>
+  <body></body>
+</html>

@@ -6,6 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0a0a0a" />
     <title>Recipes — discover, scale, shop</title>
+    <script>
+      // Unpacks the path 404.html redirected here (see public/404.html) —
+      // only relevant on GitHub Pages, which has no server-side rewrite and
+      // 404s on any deep link or refresh of a non-root route. No-ops
+      // everywhere else (Vercel, local dev), including when there's simply
+      // nothing to unpack.
+      ;(function () {
+        var params = new URLSearchParams(location.search)
+        var redirect = params.get('redirect')
+        if (redirect) {
+          // location.pathname is e.g. '/Recipes/' (trailing slash) and
+          // redirect is '/recipe/masala-dosa' (leading slash) — naive
+          // concatenation doubles the slash, which breaks BrowserRouter's
+          // basename match.
+          var base = location.pathname.replace(/\/$/, '')
+          history.replaceState(null, '', base + redirect)
+        }
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>

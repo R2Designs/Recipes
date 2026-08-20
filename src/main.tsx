@@ -7,7 +7,11 @@ import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
+    {/* BASE_URL is '/' everywhere except the GitHub Pages build, where it's
+        '/Recipes/' (see vite.config.ts) — basename must not have a trailing
+        slash, or every route fails to match and falls through to the
+        catch-all. */}
+    <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
       <ErrorBoundary>
         <App />
       </ErrorBoundary>

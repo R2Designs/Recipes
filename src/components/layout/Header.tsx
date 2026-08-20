@@ -1,5 +1,6 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-import { CookingPot, Search, ShoppingBasket, UserRound } from 'lucide-react'
+import { Search, ShoppingBasket, UserRound } from 'lucide-react'
+import logoMark from '@/assets/logo/logo-mark.svg'
 import { useCartStore } from '@/store/useCartStore'
 import { orderableLines } from '@/services/cartService'
 import { MEAL_LABELS } from '@/types/domain'
@@ -31,9 +32,7 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-line bg-paper/85 backdrop-blur-lg">
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-3 px-4 sm:px-6">
         <Link to="/" className="mr-1 flex items-center gap-2" aria-label="Recipes — home">
-          <span className="grid size-8 place-items-center rounded-[10px] bg-saffron text-white">
-            <CookingPot size={18} strokeWidth={2.25} />
-          </span>
+          <img src={logoMark} alt="" className="size-8" />
           <span className="heading-display hidden text-[1.375rem] leading-none text-ink sm:block">
             Recipes
           </span>
