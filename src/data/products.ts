@@ -1,6 +1,7 @@
 import type { Product } from '@/types/product'
 import type { Unit } from '@/types/domain'
 import { getIngredient } from './ingredients'
+import { INGREDIENT_IMAGES } from './ingredientImages'
 
 /**
  * Mock SKU catalogue.
@@ -284,7 +285,9 @@ function buildCatalogue(): Product[] {
         packLabel: packLabel(size, unit),
         price,
         mrp,
-        image: '',
+        // One representative photo per ingredient, reused across every SKU
+        // of it regardless of brand — see ingredientImages.ts.
+        image: INGREDIENT_IMAGES[ingredientId] ?? '',
         availability: availability ?? 'in-stock',
         vendorRef: { vendor: 'instamart', productId: `IM-${ingredientId.toUpperCase()}-${i}` },
       })
